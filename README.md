@@ -1,5 +1,5 @@
 # DiscordMCPurchases
-A simple and straightforward Spigot plugin for Minecraft 1.8.8 that allows Discord users to purchase products on the Discord store, and receive Minecraft rewards for their purchase.
+A simple and straightforward Spigot plugin for Minecraft 1.8.8 that allows Discord users to purchase products on the Discord store, and receive Minecraft rewards for their purchases.
 
 This plugin includes
 * MySQL integration (it only works with MySQL)
@@ -17,3 +17,17 @@ This plugin includes
 * Ability to claim multiple rewards at once
 
 If you are going to use this plugin, please ensure the SKUs for your "game" are marked as IAP or In App Purchases. This is essential for the plugin to function.
+
+You must also invite the bot to your Discord guild for the verification in the first place.
+
+### Commands
+* verify
+   * This provides the player with a code to type in the verification channel
+* confirm
+   * This manually asks Discord if the user running the command has purchased a product
+* dmcp
+   * This command gives basic information regarding the plugin
+* dmcp reload
+   * This will completely reload/refresh the config file and relog into the Discord bot
+   
+
