@@ -1,0 +1,11 @@
+name: DiscordMCPurchases
+author: Matt Malec
+main: com.mattmalec.discordmcpurchases.minecraft.Minecraft
+version: 1.0
+commands:
+  verify:
+    description: Verify your Discord account
+  dmcp:
+    description: Discord Minecraft Purchase
+  confirm:
+    description: Confirm your purchasess

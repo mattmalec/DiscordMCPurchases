@@ -1,0 +1,20 @@
+mysql:
+  host: 'mysql.fuck'
+  port: 3306
+  username: 'epic-fucking-username'
+  password: 'IwAtChPoRn69'
+discord:
+  application-id: 574027384983126026
+  bot-token: r42uei0rfy4389erioyf4389ewryhfeo
+  verification-channel-id: 574444791341776896
+  debug: false
+minecraft:
+  purchases:
+    check-rate: 10
+    '574028480740851713':
+      commands:
+      - give {player} apple 12
+      - give {player} stone 5
+      - 'say Matt is fucking awesome dude!'
+      apply-roles: []
+      remove-roles: []
