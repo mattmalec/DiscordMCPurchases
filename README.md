@@ -17,3 +17,6 @@ This plugin includes
 * Ability to claim multiple rewards at once
 
 If you are going to use this plugin, please ensure the SKUs for your "game" are marked as IAP or In App Purchases. This is essential for the plugin to function.
+
+You must also invite the bot to your Discord guild for the verification in the first place.
+
