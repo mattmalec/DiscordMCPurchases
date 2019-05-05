@@ -20,3 +20,14 @@ If you are going to use this plugin, please ensure the SKUs for your "game" are 
 
 You must also invite the bot to your Discord guild for the verification in the first place.
 
+### Commands
+* verify
+   * This provides the player with a code to type in the verification channel
+* confirm
+   * This manually asks Discord if the user running the command has purchased a product
+* dmcp
+   * This command gives basic information regarding the plugin
+* dmcp reload
+   * This will completely reload/refresh the config file and relog into the Discord bot
+   
+
