@@ -32,13 +32,13 @@ public class VerifyCommand implements CommandExecutor {
         Player p;
         if(sender instanceof Player) {
             p = (Player) sender;
+            if(command.getName().equalsIgnoreCase("verify")) {
             if(caching.exists(p)) {
                 String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.account-already-linked"));
                 p.sendMessage(message);
                 return false;
             }
             int code = generateCode();
-            if(command.getName().equalsIgnoreCase("verify")) {
                 if(codeCache.containsKey(p.getUniqueId())) {
                     String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.verify-pending"));
                     p.sendMessage(message.replace("{code}", Integer.toUnsignedString(codeCache.get(p.getUniqueId())))
@@ -50,7 +50,6 @@ public class VerifyCommand implements CommandExecutor {
                     codeCache.put(p.getUniqueId(), code);
                 }
             }
-
         } else {
             sender.sendMessage(ChatColor.YELLOW + "This command is for in-game players only!");
         }

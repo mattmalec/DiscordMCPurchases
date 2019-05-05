@@ -26,6 +26,9 @@ public class Caching {
     public boolean exists(Player player) {
         return discordIdMap.containsKey(player.getUniqueId());
     }
+    public void removeDiscord(Player player) {
+        discordIdMap.remove(player.getUniqueId());
+    }
     public void clear() {
         discordIdMap.clear();
     }

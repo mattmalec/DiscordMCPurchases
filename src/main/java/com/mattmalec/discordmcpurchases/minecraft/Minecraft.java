@@ -5,6 +5,7 @@ import com.mattmalec.discordmcpurchases.discord.managers.EventManager;
 import com.mattmalec.discordmcpurchases.discord.store.StoreController;
 import com.mattmalec.discordmcpurchases.minecraft.commands.ConfirmCommand;
 import com.mattmalec.discordmcpurchases.minecraft.commands.ReloadCommand;
+import com.mattmalec.discordmcpurchases.minecraft.commands.UnlinkCommand;
 import com.mattmalec.discordmcpurchases.minecraft.commands.VerifyCommand;
 import com.mattmalec.discordmcpurchases.minecraft.listeners.PlayerJoin;
 import com.mattmalec.discordmcpurchases.utils.Caching;
@@ -70,6 +71,7 @@ public class Minecraft extends JavaPlugin {
         sender.sendMessage(ChatColor.YELLOW + "Registering commands");
 
         getCommand("verify").setExecutor(new VerifyCommand(discord.getJDA().getTextChannelById(getConfig().getLong("discord.verification-channel-id")), caching, codeCache, getConfig()));
+        getCommand("unlink").setExecutor(new UnlinkCommand(caching, getConfig(), sqlBuilder));
         getCommand("dmcp").setExecutor(new ReloadCommand(this, schedule, discord));
         getCommand("confirm").setExecutor(new ConfirmCommand(caching, storeController, getConfig()));
 

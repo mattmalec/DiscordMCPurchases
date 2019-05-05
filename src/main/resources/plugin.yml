@@ -9,3 +9,5 @@ commands:
     description: Discord Minecraft Purchase
   confirm:
     description: Confirm your purchasess
+  unlink:
+    description: Unlinks your Minecraft and Discord account
