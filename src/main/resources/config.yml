@@ -5,16 +5,31 @@ mysql:
   password: 'IwAtChPoRn69'
 discord:
   application-id: 574027384983126026
-  bot-token: r42uei0rfy4389erioyf4389ewryhfeo
+  bot-token: abcd1234
   verification-channel-id: 574444791341776896
   debug: false
 minecraft:
   purchases:
-    check-rate: 10
+    check-rate: 5
     '574028480740851713':
       commands:
-      - give {player} apple 12
-      - give {player} stone 5
-      - 'say Matt is fucking awesome dude!'
-      apply-roles: []
-      remove-roles: []
+      - give {uuid} apple 12
+      - give {uuid} stone 5
+      - 'say {name} is fucking awesome brodie!'
+      apply-roles:
+      - 530973480322334741
+      remove-roles:
+      - 571535325193830441
+messages:
+  minecraft:
+    purchase-successful: '&aYou have successfully claimed all your purchases!'
+    no-purchases: '&eThere are no pending purchases to confirm!'
+    account-not-linked: '&cYou need to have a linked account to continue!'
+    account-already-linked: '&eYour Discord account is already linked!'
+    verify-pending: '&cYour verification is still pending. Your code is &e{code}'
+    begin-verify: '&aPlease type &e{code}&a in #{channel} to connect your account.'
+    begin-reload: '&eReloading the plugin'
+    finish-reload: '&aPlugin successfully reloaded'
+  discord:
+    verify-description: '**Successfully linked your Minecraft account**'
+    color: '#33c63b'
