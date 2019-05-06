@@ -35,18 +35,18 @@ public class Minecraft extends JavaPlugin {
         ConsoleCommandSender sender = getServer().getConsoleSender();
 
         if (!getDataFolder().exists()) {
-            sender.sendMessage(ChatColor.YELLOW + "Generating a new plugin.getConfig() file");
+            sender.sendMessage(ChatColor.YELLOW + "Generating a new config file");
             getDataFolder().mkdir();
             getConfig().options().copyDefaults(true);
             saveDefaultConfig();
-            sender.sendMessage(ChatColor.GREEN + "plugin.getConfig() created");
+            sender.sendMessage(ChatColor.GREEN + "Config created");
         }
         boolean canConnect = handleSQL();
         if(canConnect) {
             sender.sendMessage(ChatColor.GREEN + "Successfully connected to MySQL");
             setupSQL();
         } else {
-            sender.sendMessage(ChatColor.DARK_RED + "Could not connect to MySQL. Please check your details in the " + ChatColor.RED + "plugin.getConfig().yml" + ChatColor.DARK_RED + " file");
+            sender.sendMessage(ChatColor.DARK_RED + "Could not connect to MySQL. Please check your details in the " + ChatColor.RED + "config.yml" + ChatColor.DARK_RED + " file");
         }
 
         EventManager eventManager = new EventManager(codeCache, caching, this, sqlBuilder);
