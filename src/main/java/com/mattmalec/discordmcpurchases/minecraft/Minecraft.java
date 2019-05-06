@@ -13,7 +13,6 @@ import com.mattmalec.discordmcpurchases.utils.SQLBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
@@ -36,22 +35,22 @@ public class Minecraft extends JavaPlugin {
         ConsoleCommandSender sender = getServer().getConsoleSender();
 
         if (!getDataFolder().exists()) {
-            sender.sendMessage(ChatColor.YELLOW + "Generating a new config file");
+            sender.sendMessage(ChatColor.YELLOW + "Generating a new plugin.getConfig() file");
             getDataFolder().mkdir();
             getConfig().options().copyDefaults(true);
             saveDefaultConfig();
-            sender.sendMessage(ChatColor.GREEN + "Config created");
+            sender.sendMessage(ChatColor.GREEN + "plugin.getConfig() created");
         }
         boolean canConnect = handleSQL();
         if(canConnect) {
             sender.sendMessage(ChatColor.GREEN + "Successfully connected to MySQL");
             setupSQL();
         } else {
-            sender.sendMessage(ChatColor.DARK_RED + "Could not connect to MySQL. Please check your details in the " + ChatColor.RED + "config.yml" + ChatColor.DARK_RED + " file");
+            sender.sendMessage(ChatColor.DARK_RED + "Could not connect to MySQL. Please check your details in the " + ChatColor.RED + "plugin.getConfig().yml" + ChatColor.DARK_RED + " file");
         }
 
-        EventManager eventManager = new EventManager(codeCache, caching, getConfig(), sqlBuilder);
-        discord = new Discord(getConfig(), eventManager);
+        EventManager eventManager = new EventManager(codeCache, caching, this, sqlBuilder);
+        discord = new Discord(this, eventManager);
 
         sender.sendMessage(ChatColor.YELLOW + "Starting Discord Bot");
         try {
@@ -59,7 +58,7 @@ public class Minecraft extends JavaPlugin {
         } catch (LoginException | InterruptedException e) {
             sender.sendMessage(ChatColor.RED + "Error starting Discord bot");
         }
-        StoreController storeController = new StoreController(getConfig(), discord.getJDA());
+        StoreController storeController = new StoreController(this, discord.getJDA());
         sender.sendMessage(ChatColor.GREEN + "Discord bot started");
         sender.sendMessage(ChatColor.YELLOW + "Registering events");
 
@@ -70,10 +69,10 @@ public class Minecraft extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "Events registered");
         sender.sendMessage(ChatColor.YELLOW + "Registering commands");
 
-        getCommand("verify").setExecutor(new VerifyCommand(discord.getJDA().getTextChannelById(getConfig().getLong("discord.verification-channel-id")), caching, codeCache, getConfig()));
-        getCommand("unlink").setExecutor(new UnlinkCommand(caching, getConfig(), sqlBuilder));
+        getCommand("verify").setExecutor(new VerifyCommand(discord.getJDA().getTextChannelById(getConfig().getLong("discord.verification-channel-id")), caching, codeCache, this));
+        getCommand("unlink").setExecutor(new UnlinkCommand(caching, this, sqlBuilder));
         getCommand("dmcp").setExecutor(new ReloadCommand(this, schedule, discord));
-        getCommand("confirm").setExecutor(new ConfirmCommand(caching, storeController, getConfig()));
+        getCommand("confirm").setExecutor(new ConfirmCommand(caching, storeController, this));
 
         sender.sendMessage(ChatColor.GREEN + "Commands registered");
 
@@ -106,13 +105,13 @@ public class Minecraft extends JavaPlugin {
 
     private boolean handleSQL() {
 
-        FileConfiguration config = getConfig();
+        JavaPlugin plugin = this;
 
-        String host = config.getString("mysql.host");
-        int port = config.getInt("mysql.port");
-        String username = config.getString("mysql.username");
-        String password = config.getString("mysql.password");
-        String database = config.getString("mysql.database");
+        String host = plugin.getConfig().getString("mysql.host");
+        int port = plugin.getConfig().getInt("mysql.port");
+        String username = plugin.getConfig().getString("mysql.username");
+        String password = plugin.getConfig().getString("mysql.password");
+        String database = plugin.getConfig().getString("mysql.database");
 
         this.sqlBuilder = new SQLBuilder(host, port, username, password, database);
 

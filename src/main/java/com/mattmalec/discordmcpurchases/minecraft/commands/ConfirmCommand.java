@@ -13,8 +13,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ public class ConfirmCommand implements CommandExecutor {
 
     private Caching caching;
     private StoreController controller;
-    private FileConfiguration config;
+    private JavaPlugin plugin;
 
-    public ConfirmCommand(Caching caching, StoreController controller, FileConfiguration config) {
+    public ConfirmCommand(Caching caching, StoreController controller, JavaPlugin plugin) {
         this.caching = caching;
         this.controller = controller;
-        this.config = config;
+        this.plugin = plugin;
 
     }
 
@@ -43,11 +43,11 @@ public class ConfirmCommand implements CommandExecutor {
                     User user = jda.getUserById(caching.getDiscordId(p));
                     List<Entitlement> entitlements = controller.getEntitlements(user, false);
                     for (Entitlement entitlement : entitlements) {
-                        if (config.getBoolean("discord.debug")) System.out.printf("Name: %s\nID: %s\n", entitlement.getSKU().getName(), entitlement.getSKU().getId());
-                        List<String> commands = config.getStringList(String.format("minecraft.purchases.%s.commands", entitlement.getSKU().getId()));
-                        List<Long> applyRolesIds = config.getLongList(String.format("minecraft.purchases.%s.apply-roles", entitlement.getSKU().getId()));
-                        List<Long> removeRolesIds = config.getLongList(String.format("minecraft.purchases.%s.remove-roles", entitlement.getSKU().getId()));
-                        TextChannel tc = jda.getTextChannelById(config.getLong("discord.verification-channel-id"));
+                        if (plugin.getConfig().getBoolean("discord.debug")) System.out.printf("Name: %s\nID: %s\n", entitlement.getSKU().getName(), entitlement.getSKU().getId());
+                        List<String> commands = plugin.getConfig().getStringList(String.format("minecraft.purchases.%s.commands", entitlement.getSKU().getId()));
+                        List<Long> applyRolesIds = plugin.getConfig().getLongList(String.format("minecraft.purchases.%s.apply-roles", entitlement.getSKU().getId()));
+                        List<Long> removeRolesIds = plugin.getConfig().getLongList(String.format("minecraft.purchases.%s.remove-roles", entitlement.getSKU().getId()));
+                        TextChannel tc = jda.getTextChannelById(plugin.getConfig().getLong("discord.verification-channel-id"));
                         Guild guild = tc.getGuild();
                         if (!applyRolesIds.isEmpty()) {
                             List<Role> applyRoles = new ArrayList<>();
@@ -65,14 +65,14 @@ public class ConfirmCommand implements CommandExecutor {
                         controller.consume(entitlement);
                     }
                     if (!entitlements.isEmpty()) {
-                        String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.purchase-successful"));
+                        String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.purchase-successful"));
                         p.sendMessage(message);
                     } else {
-                        String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.no-purchases"));
+                        String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.no-purchases"));
                         p.sendMessage(message);
                     }
                 } else {
-                    String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.account-not-linked"));
+                    String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.account-not-linked"));
                     p.sendMessage(message);
                 }
             }

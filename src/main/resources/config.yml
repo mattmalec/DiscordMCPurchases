@@ -40,6 +40,7 @@ messages:
     purchase-successful: '&aYou have successfully claimed all your purchases!'
     no-purchases: '&eThere are no pending purchases to confirm!'
     account-not-linked: '&cYou need to have a linked account to continue!'
+    link-success: '&aYour account has been successfully linked with &e{tag}'
     unlink-success: '&aYour account has been successfully unlinked!'
     account-already-linked: '&eYour Discord account is already linked!'
     verify-pending: '&cYour verification is still pending. Your code is &e{code}'

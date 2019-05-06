@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -18,13 +18,13 @@ public class VerifyCommand implements CommandExecutor {
     private TextChannel textChannel;
     private Caching caching;
     private Map<UUID, Integer> codeCache;
-    private FileConfiguration config;
+    private JavaPlugin plugin;
 
-    public VerifyCommand(TextChannel textChannel, Caching caching, Map<UUID, Integer> codeCache, FileConfiguration config) {
+    public VerifyCommand(TextChannel textChannel, Caching caching, Map<UUID, Integer> codeCache, JavaPlugin plugin) {
         this.textChannel = textChannel;
         this.caching = caching;
         this.codeCache = codeCache;
-        this.config = config;
+        this.plugin = plugin;
     }
 
     @Override
@@ -34,17 +34,17 @@ public class VerifyCommand implements CommandExecutor {
             p = (Player) sender;
             if(command.getName().equalsIgnoreCase("verify")) {
             if(caching.exists(p)) {
-                String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.account-already-linked"));
+                String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.account-already-linked"));
                 p.sendMessage(message);
                 return false;
             }
             int code = generateCode();
                 if(codeCache.containsKey(p.getUniqueId())) {
-                    String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.verify-pending"));
+                    String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.verify-pending"));
                     p.sendMessage(message.replace("{code}", Integer.toUnsignedString(codeCache.get(p.getUniqueId())))
                     .replace("{channel}", textChannel.getName()));
                 } else {
-                    String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.begin-verify"));
+                    String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.begin-verify"));
                     p.sendMessage(message.replace("{code}", Integer.toUnsignedString(code))
                             .replace("{channel}", textChannel.getName()));
                     codeCache.put(p.getUniqueId(), code);

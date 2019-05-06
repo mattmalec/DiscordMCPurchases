@@ -41,6 +41,7 @@ public class ReloadCommand implements CommandExecutor {
                     } catch (IOException | InvalidConfigurationException ex) {
                         ex.printStackTrace();
                     }
+                    plugin.reloadConfig();
                     discord.reload();
                     schedule.restart();
                     String message2 = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.finish-reload"));

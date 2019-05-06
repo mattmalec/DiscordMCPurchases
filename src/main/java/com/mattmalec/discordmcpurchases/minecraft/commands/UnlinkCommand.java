@@ -6,18 +6,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class UnlinkCommand implements CommandExecutor {
 
     private Caching caching;
-    private FileConfiguration config;
+    private JavaPlugin plugin;
     private SQLBuilder sqlBuilder;
 
-    public UnlinkCommand(Caching caching, FileConfiguration config, SQLBuilder sqlBuilder) {
+    public UnlinkCommand(Caching caching, JavaPlugin plugin, SQLBuilder sqlBuilder) {
         this.caching = caching;
-        this.config = config;
+        this.plugin = plugin;
         this.sqlBuilder = sqlBuilder;
     }
 
@@ -28,11 +28,11 @@ public class UnlinkCommand implements CommandExecutor {
             if (command.getName().equalsIgnoreCase("unlink")) {
                 p = (Player) sender;
                 if (!caching.exists(p)) {
-                    String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.account-not-linked"));
+                    String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.account-not-linked"));
                     p.sendMessage(message);
                     return false;
                 }
-                String message = ChatColor.translateAlternateColorCodes('&', config.getString("messages.minecraft.unlink-success"));
+                String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.unlink-success"));
                 p.sendMessage(message);
                 caching.removeDiscord(p);
                 String database = "`" + sqlBuilder.getDatabase() + "`.`players`";
