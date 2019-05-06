@@ -1,6 +1,8 @@
 # DiscordMCPurchases
 A simple and straightforward Spigot plugin for Minecraft 1.8.8 that allows Discord users to purchase products on the Discord store, and receive Minecraft rewards for their purchases.
 
+Before we start, you will get errors in your console until you configure your MySQL. Please configure all that before complaining that your console is full of errors.
+
 This plugin includes
 * MySQL integration (it only works with MySQL)
 * Complete Minecraft and Discord account linking
