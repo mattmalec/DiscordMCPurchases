@@ -23,6 +23,8 @@ You must also invite the bot to your Discord guild for the verification in the f
 ### Commands
 * verify
    * This provides the player with a code to type in the verification channel
+* unlink
+   * This unlinks your Discord from your Minecraft account
 * confirm
    * This manually asks Discord if the user running the command has purchased a product
 * dmcp
