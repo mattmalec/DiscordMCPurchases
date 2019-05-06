@@ -13,7 +13,7 @@ minecraft:
   purchases:
     # Time in seconds to ask Discord if people made purchases
     # Set this to -1 to disable (only allowing purchase checking via the /confirm command
-    check-rate: 5
+    check-rate: -1
     # You can copy and paste these for multiple SKUs (yes, this is a SKU ID)
     # In commands, you can use {uuid} for the player UUID and {player} for their username
     '574028480740851713':
