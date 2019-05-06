@@ -42,6 +42,7 @@ public class ConfirmCommand implements CommandExecutor {
                     JDA jda = controller.getJDA();
                     User user = jda.getUserById(caching.getDiscordId(p));
                     List<Entitlement> entitlements = controller.getEntitlements(user, false);
+                    int appliedEntitlements = 0;
                     for (Entitlement entitlement : entitlements) {
                         if (plugin.getConfig().getBoolean("discord.debug")) System.out.printf("Name: %s\nID: %s\n", entitlement.getSKU().getName(), entitlement.getSKU().getId());
                         List<String> commands = plugin.getConfig().getStringList(String.format("minecraft.purchases.%s.commands", entitlement.getSKU().getId()));
@@ -62,9 +63,12 @@ public class ConfirmCommand implements CommandExecutor {
                         commands.forEach(s -> Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), s
                                 .replace("{uuid}", p.getUniqueId().toString())
                                 .replace("{name}", p.getName())));
-                        controller.consume(entitlement);
+                        if(!commands.isEmpty()) {
+                            controller.consume(entitlement);
+                            appliedEntitlements++;
+                        }
                     }
-                    if (!entitlements.isEmpty()) {
+                    if (appliedEntitlements != 0) {
                         String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.purchase-successful"));
                         p.sendMessage(message);
                     } else {
