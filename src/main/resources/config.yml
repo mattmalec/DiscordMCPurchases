@@ -16,7 +16,7 @@ minecraft:
     check-rate: -1
     # You can copy and paste these for multiple SKUs (yes, this is a SKU ID)
     # In commands, you can use {uuid} for the player UUID and {player} for their username
-    '574028480740851713':
+    'my-sku-id':
       commands:
       - give {uuid} apple 12
       - give {uuid} stone 5
@@ -26,7 +26,7 @@ minecraft:
       - 530973480322334741
       remove-roles:
       - 571535325193830441
-    '36592368576236593':
+    'another-sku-id':
       commands:
       - give {uuid} stick 16
       - give {uuid} diamond 22

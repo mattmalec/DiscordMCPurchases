@@ -6,11 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.IOException;
 
 public class ReloadCommand implements CommandExecutor {
 
@@ -35,12 +31,12 @@ public class ReloadCommand implements CommandExecutor {
                 if(args[0].equalsIgnoreCase("reload")){
                     String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.begin-reload"));
                     sender.sendMessage(message);
-                    File configFile = new File(plugin.getDataFolder(), "config.yml");
-                    try {
-                        plugin.getConfig().load(configFile);
-                    } catch (IOException | InvalidConfigurationException ex) {
-                        ex.printStackTrace();
-                    }
+//                    File configFile = new File(plugin.getDataFolder(), "config.yml");
+//                    try {
+//                        plugin.getConfig().load(configFile);
+//                    } catch (IOException | InvalidConfigurationException ex) {
+//                        ex.printStackTrace();
+//                    }
                     plugin.reloadConfig();
                     discord.reload();
                     schedule.restart();
