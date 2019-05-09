@@ -71,7 +71,8 @@ public class ScheduledConfirm {
                         }
                     }
                     if (appliedEntitlements != 0) {
-                        p.sendMessage(ChatColor.GREEN + "You have successfully claimed all your purchases!");
+                        String message = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("messages.minecraft.purchase-successful"));
+                        p.sendMessage(message);
                     }
                 }
             }
